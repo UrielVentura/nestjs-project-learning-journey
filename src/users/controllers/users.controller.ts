@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
-import { UserDTO, UserUpdateDTO } from '../dto/user.dto';
+import { UserDTO, UserToProjectDTO, UserUpdateDTO } from '../dto/user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -27,6 +27,11 @@ export class UsersController {
   @Get(':id')
   public async findUserById(@Param('id') id: string) {
     return await this.usersService.findUserById(id);
+  }
+
+  @Post('add-to-project')
+  public async addToProject(@Body() body: UserToProjectDTO) {
+    return await this.usersService.relationToProject(body);
   }
 
   @Put('edit/:id')
